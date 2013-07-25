@@ -37,9 +37,9 @@ public class MainActivity extends Activity {
 		start.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent next = new Intent(getApplicationContext(), RechnerActivity.class);
-				log("Auf Kalender wechseln");
-				startActivity(next);
+				Intent nextTime = new Intent(getApplicationContext(), TimeLineActivity.class);
+				log("Auf TimeLine wechseln");
+				startActivity(nextTime);
 			}
 		});
 		

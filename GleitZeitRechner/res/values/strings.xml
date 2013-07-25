@@ -6,12 +6,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_kalenderlist">Kalenderlist Activity</string>
     <string name="title_activity_rechner">RechnerActivity</string>
-    
+
     <!-- Eigene Strings -->
     <string name="start_button">Start</string>
     <string name="end_button">Ende</string>
     <string name="calculate">rechnen</string>
-    
+
     <!-- Rechner Activity -->
     <string name="startTime">Beginn der Arbeit :</string>
     <string name="endTime">Feierabend :</string>
@@ -20,6 +20,7 @@
     <string name="bspTs">0730</string>
     <string name="bspTe">1700</string>
     <string name="bspTb">0045</string>
-    
+    <string name="title_activity_time_list">TimeListActivity</string>
+    <string name="title_activity_time_line">TimeLineActivity</string>
 
 </resources>
