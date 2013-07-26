@@ -1,8 +1,10 @@
 package com.chknetsc.gleitzeitrechner;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
@@ -14,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,22 +23,23 @@ public class TimeLineActivity extends Activity {
 	
 	private static final String TAG = TimeLineActivity.class.getSimpleName();
 	
-	
+	// Nestet Class mit List Elementen
 	public class ListElement {
-		public int listNr;
-		public String worktime = "0:00";
+		public String listNr = "";
+		public String date = "";
+		public String worktime = "";
 		
 		public ListElement() {
-			worktime = "hinzufügen";
+			worktime = "--hinzufügen--";
 		}
 		
-		public void setListElement(int Nr, String time) {
-			listNr = Nr;
+		public void setListElement(String Nr, String time) {
+			listNr = Nr + ".";
 			worktime = time;
+			date = DateFormat.getDateInstance().format(new Date());
 		}
 	}
 	
-	Button del;
 	TextView weekTime;
 	List<ListElement> list = new ArrayList<ListElement>();
 	ArrayAdapter<ListElement> adapter;
@@ -50,9 +52,7 @@ public class TimeLineActivity extends Activity {
 		setContentView(R.layout.activity_time_line);
 		log("TimeLine erstellt");
 		
-		//del = (Button) findViewById(R.id.delete);
-		//weekTime.findViewById(R.id.weekTime);
-		
+		weekTime = (TextView) findViewById(R.id.weekTimeT);
 		
 		// Listenelement setzen
 		list.add(new ListElement());
@@ -66,7 +66,8 @@ public class TimeLineActivity extends Activity {
 		lv.setAdapter(adapter);
 		log("ListView und Adapter erstellt");
 		
-		//calculateWeekTime();
+		calculateWeekTime();
+		log("Calulate WeekTime beendet");
 		
 		lv.setOnItemClickListener( new OnItemClickListener() {
 			@Override
@@ -84,9 +85,11 @@ public class TimeLineActivity extends Activity {
 				String result = data.getStringExtra("com.chknetsc.RechnerActivity.result");    
 				log("AktivitiyEmpfang = " + result);
 				
-				int position = adapter.getCount()-1;
-				adapter.getItem(position).setListElement(adapter.getCount(), result);
+				Integer position = adapter.getCount();
+				adapter.getItem(position-1).setListElement((position).toString(), result);
 				adapter.add( new ListElement());
+				calculateWeekTime();
+				log("Calulate WeekTime beendet");
 		     }
 		  }
 		}
@@ -99,14 +102,20 @@ public class TimeLineActivity extends Activity {
 		for(int i = 0; i < (adapter.getCount()-1); i++) {
 			try {
 				tmp = (df.parse(list.get(i).worktime)).getTime();
+				log("Temporärere Zeit :" + tmp + "ms");
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			weekWork = weekWork + tmp;
 		}
+		log("WeekTime Zeit :" + weekWork + "ms");
+		
 		int days = (int) (weekWork / (1000*60*60*24));
 		int hour = (int) ((weekWork - (1000*60*60*24*days)) / (1000*60*60));
 		int min = (int) (weekWork - (1000*60*60*24*days) - (1000*60*60*hour)) / (1000*60);
+		
+		log("Hour = " + hour);
+		log("Minute = " + min);
 		
 		weekTime.setText(hour + ":" + min);
 	}
