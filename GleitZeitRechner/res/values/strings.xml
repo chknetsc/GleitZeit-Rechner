@@ -22,5 +22,9 @@
     <string name="bspTb">0045</string>
     <string name="title_activity_time_list">TimeListActivity</string>
     <string name="title_activity_time_line">TimeLineActivity</string>
+    <string name="save">Speichern</string>
+    <string name="delete">Löschen</string>
+    <string name="weekTime">Wochenarbeitszeit :</string>
+    <string name="zeitWoche"></string>
 
 </resources>

@@ -15,4 +15,33 @@
         android:layout_alignParentBottom="true" >
     </ListView>
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignTop="@+id/listView"
+        android:layout_marginRight="42dp"
+        android:text="@string/weekTime"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/listView"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="17dp"
+        android:text="@string/delete" />
+
+    <TextView
+        android:id="@+id/weekTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/delete"
+        android:layout_alignBottom="@+id/delete"
+        android:layout_alignRight="@+id/textView1"
+        android:text="@string/zeitWoche"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

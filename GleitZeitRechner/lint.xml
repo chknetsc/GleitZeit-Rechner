@@ -3,5 +3,6 @@
     <issue id="NewApi" severity="ignore" />
     <issue id="SimpleDateFormat">
         <ignore path="src/com/chknetsc/gleitzeitrechner/RechnerActivity.java" />
+        <ignore path="src/com/chknetsc/gleitzeitrechner/TimeLineActivity.java" />
     </issue>
 </lint>
