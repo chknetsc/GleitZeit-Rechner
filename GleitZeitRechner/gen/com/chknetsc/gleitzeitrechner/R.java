@@ -11,6 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
+        public static final int BIG=0x7f040002;
+        public static final int Mittel=0x7f040003;
         /**  Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
@@ -24,13 +26,14 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int GleitZeit=0x7f080014;
+        public static final int GleitZeit=0x7f080015;
         public static final int LinearLayout1=0x7f080005;
         public static final int RelativeLayout1=0x7f080000;
-        public static final int action_settings=0x7f080015;
+        public static final int action_settings=0x7f080016;
         public static final int breakTime=0x7f080008;
         public static final int button2=0x7f080003;
         public static final int buttonCalc=0x7f08000e;
+        public static final int delete=0x7f080014;
         public static final int endTime=0x7f08000a;
         public static final int ende=0x7f080002;
         public static final int linearLayout1=0x7f080010;
@@ -51,14 +54,16 @@ public final class R {
         public static final int activity_main=0x7f030000;
         public static final int activity_rechner=0x7f030001;
         public static final int activity_time_line=0x7f030002;
-        public static final int list_element=0x7f030003;
+        public static final int activity_time_line_activity_v2=0x7f030003;
+        public static final int list_element=0x7f030004;
     }
     public static final class menu {
         public static final int kalenderlist=0x7f070000;
         public static final int main=0x7f070001;
         public static final int rechner=0x7f070002;
         public static final int time_line=0x7f070003;
-        public static final int time_list=0x7f070004;
+        public static final int time_line_activity_v2=0x7f070004;
+        public static final int time_list=0x7f070005;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -82,6 +87,7 @@ public final class R {
         public static final int title_activity_kalenderlist=0x7f050003;
         public static final int title_activity_rechner=0x7f050004;
         public static final int title_activity_time_line=0x7f050010;
+        public static final int title_activity_time_line_activity_v2=0x7f050015;
         public static final int title_activity_time_list=0x7f05000f;
         public static final int totalWorkingTime=0x7f05000b;
         public static final int weekTimeS=0x7f050014;

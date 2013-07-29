@@ -46,7 +46,7 @@ public class TimeLineAdapter extends ArrayAdapter<ListElement> {
         	// Init Listenelemente
             TextView itemView = (TextView) view.findViewById(R.id.textView1);
             // Fülle Listenelemente
-            itemView.setText(String.format("%s    %s   %s", item.listNr,item.date, item.worktime));;
+            itemView.setText(String.format("%s   %s   %s", item.listNr,item.date, item.worktime));;
          }
         return view;
     }

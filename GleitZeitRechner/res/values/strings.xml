@@ -24,9 +24,10 @@
     <string name="title_activity_time_line">TimeLineActivity</string>
     <string name="save">Speichern</string>
     <string name="delete">Löschen</string>
-    
+
     <!-- TimeLine Activity -->
     <string name="wochenZeitS">Wochenarbeitszeit = </string>
     <string name="weekTimeS"></string>
+    <string name="title_activity_time_line_activity_v2">TimeLineActivityV2</string>
 
 </resources>
