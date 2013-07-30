@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class TimeLineActivity extends Activity {
 	
 	private static final String TAG = TimeLineActivity.class.getSimpleName();
-	private boolean mockup = true;
+	private boolean mockup = false;
 	
 	// Nestet Class mit List Elementen
 	public class ListElement {
@@ -38,9 +38,9 @@ public class TimeLineActivity extends Activity {
 			worktime = "--hinzufügen--";
 		}
 		
-		public ListElement(String nr, String save) {
+		public ListElement(String nr, String da, String save) {
 			listNr = nr;
-			date = DateFormat.getDateInstance().format(new Date());
+			date = da;
 			worktime = save;
 		}
 		
@@ -71,6 +71,9 @@ public class TimeLineActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				timelinehandler.deleteDB();
+				list.clear();
+				list.add(new ListElement());
+				adapter.notifyDataSetChanged();
 			}
 			
 		});
@@ -87,6 +90,8 @@ public class TimeLineActivity extends Activity {
 		timelinehandler = new TimeLineOpenHandler(this);
 		loadWorkTimes();
 		
+		//timelinehandler.drop();
+		
 		// Wochenzeit berechnen
 		calculateWeekTime();
 		log("Calulate WeekTime beendet");
@@ -98,22 +103,8 @@ public class TimeLineActivity extends Activity {
 		lv.setOnItemClickListener( new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				if(mockup == true) {
-					String result = "8:20";
-					
-					// Anlegen von neuem Eintrag in Liste
-					Integer position = adapter.getCount();
-					adapter.getItem(position-1).setListElement((position).toString(), result);
-					adapter.add( new ListElement());
-					
-					// Eintrag speichern
-					timelinehandler.insert(result);
-					//Toast.makeText(, "Gespeichert", Toast.LENGTH_SHORT).show();
-					
-					// Wochenzeit berechnen
-					calculateWeekTime();
-					log("Calulate WeekTime beendet");
-					
+				if(mockup) {
+					mockupMehtode();
 				} else {
 					Intent nextCalc = new Intent(getApplicationContext(), RechnerActivity.class);
 					log("Auf Rechner wechseln");
@@ -126,11 +117,11 @@ public class TimeLineActivity extends Activity {
 	private void loadWorkTimes() {
 		log(" LoadWorkTimes gestartet");
 		Cursor cu = timelinehandler.select();
-		Integer position = 0;
+		Integer position = 1;
 		while(cu.moveToNext()) {
 			log("Position = " + position);
-			log("EintragNr: " + cu.getString(0) + " Arbeitszeit = " + cu.getString(1));
-			adapter.add(new ListElement(cu.getString(0), cu.getString(1)));
+			log("EintragNr: " + cu.getString(0) + " Date = " + cu.getString(1) + " Arbeitszeit = " + cu.getString(2));
+			adapter.add(new ListElement(position.toString(), cu.getString(1), cu.getString(2)));
 			position++;
 		}
 		adapter.add( new ListElement());
@@ -156,6 +147,24 @@ public class TimeLineActivity extends Activity {
 		     }
 		  }
 		}
+	
+	private void mockupMehtode() {
+		String result = "8:20";
+		
+		// Anlegen von neuem Eintrag in Liste
+		Integer position = adapter.getCount();
+		log("PositinsNr = " + position);
+		adapter.getItem(position-1).setListElement((position).toString(), result);
+		adapter.add( new ListElement());
+		
+		// Eintrag speichern
+		timelinehandler.insert(result);
+		//Toast.makeText(, "Gespeichert", Toast.LENGTH_SHORT).show();
+		
+		// Wochenzeit berechnen
+		calculateWeekTime();
+		log("Calulate WeekTime beendet");
+	}
 
 	public void calculateWeekTime() {
 		long weekWork = 0;
@@ -172,8 +181,6 @@ public class TimeLineActivity extends Activity {
 			weekWork = weekWork + tmp;
 		}
 		log("WeekTime Zeit :" + weekWork + "ms");
-		
-		int days = (int) (weekWork / (1000*60*60*24));
 		int hour = (int) ((weekWork) / (1000*60*60));
 		Integer min = (int) (weekWork - (1000*60*60*hour)) / (1000*60);
 		

@@ -136,9 +136,8 @@ public class RechnerActivity extends Activity {
 		// Calc Total Working Time and convert it in Hour and Minutes
 		gesamt = (endD.getTime() - startD.getTime()) - breakD.getTime();
 		log("Gesamt = " + gesamt + "ms");
-		int days = (int) (gesamt / (1000*60*60*24));
-		hour = (int) ((gesamt - (1000*60*60*24*days)) / (1000*60*60));
-		min = (int) (gesamt - (1000*60*60*24*days) - (1000*60*60*hour)) / (1000*60);
+		hour = (int) ((gesamt) / (1000*60*60));
+		min = (int) (gesamt - (1000*60*60*hour)) / (1000*60);
 		log("Gesamt = " + hour + "Stunden");
 		log("Gesamt = " + min + "min");
 		

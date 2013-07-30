@@ -1,5 +1,8 @@
 package com.chknetsc.gleitzeitrechner;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,26 +21,33 @@ public class TimeLineOpenHandler extends SQLiteOpenHelper {
 	public static String DATAB_NAME = "timeline";
 		// TabellenEinträgeNamen
 	public String ID = "id";
-	// private String DATE = "date";
+	private String DATE = "date";
 	public static String WORK_TIME = "worktime";
 	
 	// Tabelle anlegen als String befehl
 	private String CREATE_TABLE_TIMELINE = "CREATE TABLE "+ DATAB_NAME + " (" + 
 			ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-			// DATE + " INTEGER, " + 
+			DATE + " VARCHAR(20), " + 
 			WORK_TIME + " VARCHAR(20));";
 	// Tabelle löschen
-	private String DROP_TABLE_TIMELINE = "DROP TABLE IF EXIST " + DATAB_NAME;
+	private String DROP_TABLE_TIMELINE = "DROP TABLE IF EXISTS " + DATAB_NAME;
 	
 
 	TimeLineOpenHandler(Context context) {
-		super(context, NAME, null, 1);
+		super(context, NAME, null, 2);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		log("Tabelle erstellt");
 		db.execSQL(CREATE_TABLE_TIMELINE);
+	}
+	
+	public void drop() {
+		log("Tabelle löschen");
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL(DROP_TABLE_TIMELINE);
+		onCreate(db);
 	}
 
 	@Override
@@ -55,6 +65,7 @@ public class TimeLineOpenHandler extends SQLiteOpenHelper {
 			log("Datenbank geöffnet");
 			// Übergebende Werte eintragen
 			ContentValues values = new ContentValues();
+			values.put(DATE, DateFormat.getDateInstance().format(new Date()));
 			values.put(WORK_TIME, worktime);
 			log("Values eingefügt");
 			// In Tabelle einfügen
@@ -79,5 +90,6 @@ public class TimeLineOpenHandler extends SQLiteOpenHelper {
 	public void deleteDB() {
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete(DATAB_NAME, null, null);
+		db.close();
 	}
 }
